@@ -153,7 +153,6 @@ const PostPage = () => {
                           <div className="author-comment">
                             {res.author}{" "}
                             <span className="date-comment">
-                              {" "}
                               {res.created_date}
                             </span>
                           </div>
@@ -162,9 +161,11 @@ const PostPage = () => {
                       );
                     })
                   ) : (
-                    <div>No commens</div>
+                    <div>Sin comentarios</div>
                   )}
                 </div>
+                <br />
+                <br />
               </InView>
             </section>
           </div>

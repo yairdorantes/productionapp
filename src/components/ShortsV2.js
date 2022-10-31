@@ -15,6 +15,7 @@ import MenuBar from "./MenuBar";
 
 let url = "https://englishapputc.herokuapp.com/api/shortsetV2/";
 let manageScore = "https://englishapputc.herokuapp.com/api/shortsV2/";
+let getUserUrl = "https://englishapputc.herokuapp.com/api/users/1";
 const ShortsV2 = () => {
   let { user } = useContext(AuthContext);
   const [show, setShow] = useState(false);
@@ -30,11 +31,15 @@ const ShortsV2 = () => {
   // const [stop, setStop] = useState(true);
   const [answerAlreadySent, setAnswerAlreadySent] = useState(false);
   const [alreadyAnswered, setAlreadyAnswered] = useState(false);
+  const [userScore, setUserScore] = useState();
+
   const fetchAPi = async () => {
     const response = await fetch(url);
     const responseJSON = await response.json();
     setShorts(responseJSON);
-
+    const getUserFetch = await fetch(getUserUrl);
+    const receiveUser = await getUserFetch.json();
+    setUserScore(receiveUser.user.score);
     console.log(responseJSON);
   };
   useEffect(() => {
@@ -58,9 +63,9 @@ const ShortsV2 = () => {
     answerSelected === correctAnswer ? setCorrect(true) : setCorrect(false);
   }, [answerSelected]);
 
-  let res;
   const getValue = () => {
     setBtnTranscription(false);
+
     setAnswerAlreadySent(true);
 
     // if (answerSelected == correctAnswer) {
@@ -83,7 +88,11 @@ const ShortsV2 = () => {
 
     helpHttp()
       .post(manageScore, options)
-      .then((res) => console.log(res));
+      .then((res) => {
+        console.log(res);
+        res.subio === true && setUserScore(userScore + 10);
+        res.subio === false && setUserScore(userScore - 5);
+      });
   };
 
   const advance = () => {
@@ -120,7 +129,7 @@ const ShortsV2 = () => {
         ) : (
           shorts.map((short) => {
             return (
-              <SwiperSlide key={short.id}>
+              <SwiperSlide className="swiper-slide-short" key={short.id}>
                 <InView
                   os="div"
                   onChange={(inView, entry) => {
@@ -246,7 +255,11 @@ const ShortsV2 = () => {
                           >
                             <button
                               disabled={disabledBtnSendAnswer}
-                              className="send-answer"
+                              className={
+                                answerAlreadySent
+                                  ? "hide-btn-send"
+                                  : "send-answer"
+                              }
                               onClick={getValue}
                             >
                               Enviar
@@ -289,6 +302,7 @@ const ShortsV2 = () => {
             );
           })
         )}
+        <div className="score-user-show-short">Puntuación: {userScore}</div>
       </Swiper>
       <MenuBar></MenuBar>
     </>

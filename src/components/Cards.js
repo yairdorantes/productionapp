@@ -23,7 +23,7 @@ const Cards = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   // const [url, setUrl] = useState("");
 
-  const [cards, setCards] = useState();
+  const [cards, setCards] = useState([]);
   const params = {
     method: "GET",
     headers: {
@@ -79,10 +79,11 @@ const Cards = () => {
           {/* <CardTuto></CardTuto> */}
           {!cards ? (
             <Loader></Loader>
+          ) : !cards.cards ? (
+            <div className="nada-por-aqui">Nada por aqui...</div>
           ) : (
             cards.cards.map((card, key) => {
-              cards.message === "no cards" && console.log("nou");
-
+              console.log(cards);
               return (
                 <SwiperSlide
                   style={{

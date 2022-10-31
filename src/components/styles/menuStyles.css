@@ -53,7 +53,7 @@
   /* background-color: #04031c; */
 
   /* background-image: url("../src/media/carrito.jpg"); */
-  background-image: url("../../media/carrito.jpg");
+  background-image: url("../../media/Moon.svg");
   background-size: cover;
   background-position: center;
 }
@@ -63,6 +63,16 @@
   background-color: #c8beb8;
 }
 
+.leader-board {
+  text-align: center;
+}
+.places-points {
+  text-align: center;
+  /* margin-top: -10px; */
+}
+.trofeo {
+  width: 50px;
+}
 @media only screen and (max-width: 480px) {
   .square-background {
     border-radius: 20px;

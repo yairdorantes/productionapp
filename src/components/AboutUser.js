@@ -83,8 +83,10 @@ const AboutUser = () => {
 
           <div className="container-info-inside-modal">
             <div>
-              <h2 className="textito">¡ Bienvenido {user.username} !</h2>
-              <h4>Tu record es de: {scoreUser} pts</h4>
+              <h2 className="textito">¡Bienvenido {user.username}!</h2>
+              <h4 style={{ textAlign: "center" }}>
+                Tu record es de: {scoreUser} pts
+              </h4>
             </div>
 
             <div className="user-is-vip">

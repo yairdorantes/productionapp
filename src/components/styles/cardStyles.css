@@ -40,6 +40,7 @@
 }
 .mySwiper {
   margin-top: 50px;
+  position: relative;
 }
 .all-cards {
   overflow: hidden;
@@ -83,6 +84,7 @@
   width: 100vw;
   justify-content: center;
   flex-wrap: wrap;
+  font-family: "Mulish", sans-serif;
 }
 .container-card-delete {
   margin: 5px;
@@ -107,4 +109,14 @@
   width: 95px;
   border-radius: 5px;
   margin: 5px;
+}
+
+.nada-por-aqui {
+  /* display: flex; */
+  /* justify-content: center; */
+  /* background-color: #ffc107; */
+
+  position: absolute;
+  left: 30%;
+  bottom: 100px;
 }

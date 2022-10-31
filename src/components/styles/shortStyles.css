@@ -73,11 +73,12 @@
   font-weight: 800;
   border-radius: 6px;
   border: none;
-  height: 25px;
-  width: 100px;
+  height: 35px;
+  width: 285px;
   background-color: #6db02a;
   color: white;
   font-size: 17px;
+  margin-top: 15px;
 }
 
 .container-question-answer {
@@ -120,6 +121,21 @@
 .hide-mgs-answer {
   opacity: 0;
 }
+.hide-btn-send {
+  display: none;
+}
+
+.swiper-slide-short {
+  position: relative;
+}
+.score-user-show-short {
+  position: fixed;
+  bottom: 80px;
+  font-family: "Mulish", sans-serif;
+
+  /* margin-bottom: 30%; */
+}
+
 @keyframes resize {
   from {
     width: 20%;

@@ -14,6 +14,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  margin-bottom: 100px;
 }
 .box-img-post-card {
   background-color: aqua;
@@ -41,13 +42,12 @@
 }
 
 .section-post {
-  word-wrap: break-word;
+  padding: 5px;
+  display: inline-block;
   font-size: 15px;
-  border-radius: 30px;
+  border-radius: 12px;
   text-align: center;
-  white-space: nowrap;
   width: auto;
-  width: 25%;
   margin: 7px;
 }
 

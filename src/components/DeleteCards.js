@@ -17,7 +17,7 @@ const customStyles = {
 
     outline: "none",
   },
-  overlay: { zIndex: 999, backgroundColor: "#18191ab1" },
+  overlay: { zIndex: 999, backgroundColor: "#171515ce" },
 };
 const urlImageCard = "https://res.cloudinary.com/tolumaster/image/upload/v1/";
 
@@ -66,6 +66,8 @@ const DeleteCards = () => {
       <div className="container-cards-delete">
         {!cards ? (
           <Loader></Loader>
+        ) : !cards.cards ? (
+          <div>Nada para borrar</div>
         ) : (
           cards.cards.map((card) => {
             return (
@@ -90,7 +92,7 @@ const DeleteCards = () => {
                     }}
                     className="btn-delete-card"
                   >
-                    Eliminar
+                    <h4>Eliminar</h4>
                   </button>
                 </div>
               </div>
@@ -99,13 +101,13 @@ const DeleteCards = () => {
         )}
       </div>
       <Modal
-        className="modal"
+        className="modal-delete-card"
         ariaHideApp={false}
         style={customStyles}
         isOpen={modalIsOpen}
       >
         <div style={{ textAlign: "center" }}>
-          <div>
+          <div className="container-alert-text">
             <h2>
               ¡Se eliminara la carta:
               <span

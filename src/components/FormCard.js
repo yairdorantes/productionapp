@@ -6,6 +6,7 @@ import AuthContext from "../context/AuthContext";
 import ReactFileReader from "react-file-reader";
 import Modal from "react-modal";
 import crossOut from "../media/crossout.png";
+import LoaderThin from "./LoaderThin";
 
 const url = "https://englishapputc.herokuapp.com/api/cards/";
 
@@ -22,9 +23,11 @@ const customStyles = {
   overlay: { zIndex: 999, backgroundColor: "#18191ab1" },
 };
 const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(false);
   const [optionSelected, setOptionSelected] = useState("");
-
+  const [fileSelected, setFileSelected] = useState(false);
+  const [showBtn, setShowBtn] = useState(true);
   // const [modalIsOpen, setModalIsOpen] = useState(true);
   let { user } = useContext(AuthContext);
 
@@ -46,20 +49,32 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
   const createData = (data) => {
     console.log(form);
     // if (!form.title === "" || !form.meaning === "" || !form.file === "") {
-    if (form.title === "" || form.meaning === "") {
-      alert("llena todo, no seas mamon xd");
+    if (
+      form.title === "" ||
+      form.meaning === "" ||
+      (form.file === "" && form.img_url === "")
+    ) {
+      alert("llena todos los campos por favor");
     } else {
       let options = {
         body: data,
         headers: { "content-type": "multipart/form-data" },
       };
       console.log(options);
+      setIsLoading(true);
+      setShowBtn(false);
       helpHttp()
         .post(url, options)
         .then((res) => {
           res.err ? setMessage(true) : setMessage(false);
           fetchApi();
         });
+
+      !message && openModal();
+      setForm(initialForm);
+      setShowBtn(true);
+      setOptionSelected("");
+      setIsLoading(false);
     }
     // } else {
     //   alert("llena");
@@ -81,6 +96,7 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
   };
 
   const handleFiles = (file) => {
+    file && setFileSelected(true);
     setForm({
       ...form,
       ["file"]: file.base64,
@@ -158,7 +174,11 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
           {optionSelected === "file" ? (
             <div className="main_div">
               <ReactFileReader handleFiles={handleFiles} base64={true}>
-                <button>Selecciona imagen</button>
+                <button>
+                  {fileSelected
+                    ? "Archivo seleccionado 😀"
+                    : "Selecciona imagen"}
+                </button>
               </ReactFileReader>
             </div>
           ) : (
@@ -170,7 +190,7 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
                   onChange={handleChange}
                   className="input-form-card"
                   type="text"
-                  placeholder="url hacia la imagen"
+                  placeholder="Dirección de la imagen"
                 />
               </div>
             )
@@ -179,11 +199,12 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
             <button
               onClick={handleSubmit}
               type="submit"
-              className="btn-send-card"
+              className={showBtn ? "btn-send-card" : "hide-btn-send-card"}
             >
               Enviar
             </button>
           </div>
+          {isLoading && <LoaderThin></LoaderThin>}
         </div>
       </div>
 

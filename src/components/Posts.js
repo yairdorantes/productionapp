@@ -95,7 +95,7 @@ const Posts = () => {
                     style={{ backgroundColor: `${post.categoria.color}` }}
                     className="section-post"
                   >
-                    {post.categoria.name}
+                    <span>{post.categoria.name}</span>
                   </div>
                   <div className="container-card-text">
                     <h3 className="title-post-card">{post.title}</h3>
