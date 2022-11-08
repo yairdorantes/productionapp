@@ -22,7 +22,7 @@ const PayPal = () => {
 
   const test = {
     describe: "testing",
-    price: 20.2,
+    price: 0.05,
   };
   return (
     <div className="paypal-btn">

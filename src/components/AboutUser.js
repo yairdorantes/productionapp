@@ -8,7 +8,8 @@ import PayPal from "./PayPal";
 import closeUser from "../media/logout.png";
 import vip from "../media/vip.png";
 import crossOut from "../media/crossout.png";
-
+import OutsideClickHandler from "react-outside-click-handler";
+import "./styles/shinytext.css";
 // Modal.defaultStyles.overlay.backgroundColor = "rgba(0, 0, 0, 0.83)";
 const customStyles = {
   content: {
@@ -26,6 +27,10 @@ const AboutUser = () => {
   const [scoreUser, setScoreUser] = useState();
   const [isPremium, setIsPremium] = useState(false);
   let url = `https://englishapputc.herokuapp.com/api/users/${user.user_id}`;
+  const hideAboutUser = () => {
+    setModalIsOpen(false);
+  };
+  // const ref = useDetectClickOutside({ onTriggered: hideAboutUser });
 
   // helpHttp()
   //   .get(url)
@@ -51,6 +56,8 @@ const AboutUser = () => {
     helpHttp()
       .get(url)
       .then((res) => {
+        setIsPremium(res.user.premium);
+        console.log(isPremium);
         setScoreUser(res.user.score);
       });
   };
@@ -65,54 +72,69 @@ const AboutUser = () => {
   };
 
   return (
-    <div className="userinfo-container">
-      <div className="avatar">
-        <img onClick={openModal} src={usuario} alt="" />
-        <Modal
-          ariaHideApp={false}
-          style={customStyles}
-          isOpen={modalIsOpen}
-          contentLabel="Minimal Modal Example"
-        >
-          <img
-            className="cross-out"
-            onClick={openModal}
-            src={crossOut}
-            alt=""
-          />
+    <>
+      <div className="userinfo-container">
+        <div className="avatar">
+          <img onClick={openModal} src={usuario} alt="" />
+          <Modal
+            ariaHideApp={false}
+            style={customStyles}
+            isOpen={modalIsOpen}
+            contentLabel="Minimal Modal Example"
+          >
+            {/* <OutsideClickHandler
+              onOutsideClick={() => {
+                hideAboutUser();
+              }}
+            > */}
+            <img
+              className="cross-out"
+              onClick={openModal}
+              src={crossOut}
+              alt=""
+            />
 
-          <div className="container-info-inside-modal">
-            <div>
-              <h2 className="textito">¡Bienvenido {user.username}!</h2>
-              <h4 style={{ textAlign: "center" }}>
-                Tu record es de: {scoreUser} pts
-              </h4>
-            </div>
+            <div className="container-info-inside-modal">
+              <div>
+                <h2 className="textito">
+                  ¡Bienvenido{" "}
+                  <span className={isPremium ? "shiny-text" : ""}>
+                    {console.log(isPremium)}
+                    {user.username}
+                  </span>
+                  !
+                </h2>
+                <h4 style={{ textAlign: "center" }}>
+                  Tu record es de: {scoreUser} pts
+                </h4>
+              </div>
 
-            <div className="user-is-vip">
-              <img className="vip-icon" src={vip} alt="" />
-              <span>
-                {isPremium
-                  ? "Eres usuario premium 😃!"
-                  : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
-                {!isPremium && <PayPal></PayPal>}
-              </span>
-            </div>
-            {/* <button class="button-pro">
+              <div className="user-is-vip">
+                <img className="vip-icon" src={vip} alt="" />
+                <span>
+                  {isPremium
+                    ? "Eres usuario premium 😃!"
+                    : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
+                  {!isPremium && <PayPal></PayPal>}
+                </span>
+              </div>
+              {/* <button class="button-pro">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
                 <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
               </svg>
               Unlock Pro
             </button> */}
 
-            <div className="icon-text-modal-logout" onClick={logoutUser}>
-              <img className="logout-icon" src={closeUser} alt="" />
-              <span className="logout-text">Cerrar sesión</span>
+              <div className="icon-text-modal-logout" onClick={logoutUser}>
+                <img className="logout-icon" src={closeUser} alt="" />
+                <span className="logout-text">Cerrar sesión</span>
+              </div>
             </div>
-          </div>
-        </Modal>
+            {/* </OutsideClickHandler> */}
+          </Modal>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
+
+legend {
+  border: solid 5px #556ed5;
+  padding: 10px;
+  border-radius: 10px;
+}
+.leader-board {
+  font-family: "Oswald", sans-serif;
+  font-size: 15px;
+}
+.container-legend-leader {
+  display: flex;
+  justify-content: space-around;
+
+  /* text-align: center; */
+  /* margin: 20px; */
+}
+.container-legend-leader > div {
+  /* margin: 10px; */
+}
+.text-board-img {
+  transition: 1s ease-in-out;
+  border: solid 1px #e3d80ae0;
+  border-radius: 5px;
+  color: yellow;
+  width: 140px;
+  height: 26px;
+  cursor: pointer;
+
+  margin: auto;
+}
+.hide-text-board-img {
+  opacity: 0;
+}
+.container-leader-board {
+  font-family: "Oswald", sans-serif;
+
+  position: absolute;
+  margin-top: 250px;
+  /* background-color: rgb(31, 43, 43); */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  transition: 0.8s ease-in-out;
+  /* border-radius: 10px; */
+}
+
+.container-content-leader {
+  width: 100%;
+  height: 100%;
+}
+.fieldset-leader {
+  width: 500px;
+  height: 500px;
+  text-align: center;
+  border: solid 4px #6ca9e2;
+  background-color: #0d1d46;
+  border-radius: 10px;
+}
+.container-place-icons {
+  display: flex;
+  flex-direction: column;
+  margin-left: -20px;
+  margin-top: 15px;
+}
+.place-icon {
+  width: 50px;
+}
+.user-icon-leader {
+  width: 40px;
+}
+.container-place-user {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 34px;
+}
+.container-place-user > div {
+  /* width: 20px; */
+  /* margin-right: 20px; */
+}
+
+.icon-username {
+  display: flex;
+  flex-direction: column;
+}
+.icon-username > div {
+  /* text-align: center; */
+  /* margin-left: -20px; */
+}
+
+@media only screen and (max-width: 450px) {
+  .container-leader-board {
+    width: 100%;
+  }
+  .container-content-leader {
+    width: 100%;
+  }
+}
+.hide-leaderboard {
+  margin-top: -600px;
+}

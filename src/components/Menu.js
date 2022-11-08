@@ -2,21 +2,20 @@ import "./styles/menuStyles.css";
 import cards from "../media/cardss.png";
 import video from "../media/play.png";
 import tips from "../media/blog.png";
-import trofeo from "../media/ganador.png";
 
 import { Link } from "react-router-dom";
 import AboutUser from "./AboutUser";
+import LeaderBoard from "./LeaderBoard";
 
 const Menu = () => {
   return (
     <>
       {console.log("welcome yair heroku")}
       <div className="bg-menu">
+        <LeaderBoard></LeaderBoard>
         <AboutUser />
         {/* <div className="places-points">jjaaj</div> */}
-        <div className="leader-board">
-          <img className="trofeo" src={trofeo} alt="" />
-        </div>
+
         <div className="container-menu">
           <div>
             <Link to="/cards" className="link">
