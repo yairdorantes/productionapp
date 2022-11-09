@@ -15,9 +15,9 @@ import MenuBar from "./MenuBar";
 
 let url = "https://englishapputc.herokuapp.com/api/shortsetV2/";
 let manageScore = "https://englishapputc.herokuapp.com/api/shortsV2/";
-let getUserUrl = "https://englishapputc.herokuapp.com/api/users/1";
 const ShortsV2 = () => {
   let { user } = useContext(AuthContext);
+  let getUserUrl = `https://englishapputc.herokuapp.com/api/users/${user.user_id}`;
   const [show, setShow] = useState(false);
   const [shortId, setShortId] = useState();
   const [correctAnswer, setCorrectAnswer] = useState("");

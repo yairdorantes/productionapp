@@ -18,14 +18,15 @@ const LeaderBoard = () => {
   const [tops, setTops] = useState([]);
   const getTop = () => {
     helpHttp()
-      .get("http://127.0.0.1:8000/api/topusers/")
+      .get("https://englishapputc.herokuapp.com/api/topusers/")
       .then((res) => {
         setTops(res.topuser);
       });
     helpHttp()
-      .get(`http://127.0.0.1:8000/api/users/${user.user_id}`)
+      .get(`https://englishapputc.herokuapp.com/api/users/${user.user_id}`)
       .then((res) => {
         setUserData(res.user);
+        console.log(res);
         console.log(res.user.score);
       });
   };
@@ -67,7 +68,7 @@ const LeaderBoard = () => {
         >
           <fieldset className="fieldset-leader">
             <legend>
-              <h2>Tabla de liderazgo</h2>
+              <h2 className="leader-title">Tabla de liderazgo</h2>
             </legend>
             <div className="container-content-leader">
               <div className="container-legend-leader">

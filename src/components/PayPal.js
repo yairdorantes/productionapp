@@ -46,36 +46,6 @@ const PayPal = () => {
                 },
               },
             ],
-            // purchase_units: [
-            //   {
-            //     reference_id: "PUHF",
-            //     description: "Some description",
-            //     custom_id: "Something7364",
-            //     soft_descriptor: "Great description 1",
-            //     amount: {
-            //       currency_code: "USD",
-            //       value: "200.00",
-            //       breakdown: {
-            //         item_total: {
-            //           currency_code: "USD",
-            //           value: "200.00",
-            //         },
-            //       },
-            //     },
-            //     items: [
-            //       {
-            //         name: "Item 1",
-            //         description: "The best item ever",
-            //         sku: "xyz-2654",
-            //         unit_amount: {
-            //           currency_code: "USD",
-            //           value: "100.00",
-            //         },
-            //         quantity: "1",
-            //       },
-            //     ],
-            //   },
-            // ],
           });
         }}
         onApprove={async (data, action) => {
@@ -84,7 +54,9 @@ const PayPal = () => {
           handleApprove(data.orderID);
 
           helpHttp()
-            .put(`http://127.0.0.1:8000/api/makepremium/${user.user_id}`)
+            .put(
+              `https://englishapputc.herokuapp.com/api/makepremium/${user.user_id}`
+            )
             .then((res) => {
               console.log(res);
               if (!res.err) {
@@ -107,7 +79,8 @@ const PayPal = () => {
         style={{
           layout: "horizontal",
           color: "gold",
-          shape: "pill",
+          shape: "rect",
+          height: 30,
         }}
       />
     </div>

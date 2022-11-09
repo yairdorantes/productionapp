@@ -1,17 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap");
 .shiny-text {
   /* font-familyk: "Monofett", cursive; */
-  color: yellow;
-  animation: glow 1s ease-in-out infinite alternate;
+  /* color: yellow; */
+  background: linear-gradient(
+    to right,
+    #c0c0c0 20%,
+    #ff0 40%,
+    #ff0 60%,
+    #c0c0c0 80%
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  /* text-fill-color: transparent; */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 2s linear infinite;
+  /* font-weight: 100; */
+  /* animation: glow 1s ease-in-out infinite alternate; */
+  font-family: "Poppins", sans-serif;
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
-      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-  }
-
+@keyframes shine {
   to {
-    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
-      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    background-position: 200% center;
   }
 }

@@ -14,6 +14,8 @@ import MenuBar from "./MenuBar";
 import { Link, NavLink, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import FormCard from "./FormCard";
+import PayPal from "./PayPal";
+import { helpHttp } from "../helpers/helpHttp";
 let url = "";
 const urlImageCard = "https://res.cloudinary.com/tolumaster/image/upload/v1/";
 const Cards = () => {
@@ -21,6 +23,8 @@ const Cards = () => {
   const paramsUrl = useParams();
   const [isActive, setIsActive] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
+
   // const [url, setUrl] = useState("");
 
   const [cards, setCards] = useState([]);
@@ -38,11 +42,22 @@ const Cards = () => {
     const response = await fetch(url, params);
     const responseJSON = await response.json();
     setCards(responseJSON);
-    console.log(responseJSON);
+    console.log(responseJSON.cards.length);
+  };
+
+  const getUserData = () => {
+    helpHttp()
+      .get(`https://englishapputc.herokuapp.com/api/users/${user.user_id}`)
+      .then((res) => {
+        // console.log(res.user.premium);
+        setIsPremium(res.user.premium);
+      });
   };
 
   useEffect(() => {
     fetchAPi();
+    getUserData();
+    // console.log(setCards);
   }, []);
 
   const handleDisplay = (e) => {
@@ -127,12 +142,27 @@ const Cards = () => {
         </Swiper>
         {paramsUrl.section === "mis-cartas" && (
           <div className="container-icon-add">
-            <img
-              onClick={openModal}
-              className="icon-add"
-              src={iconAdd}
-              alt=""
-            />
+            {cards.cards && cards.cards.length >= 10 && !isPremium ? (
+              <>
+                <div className="container-updatein-card">
+                  <div className="alert-no-more-cards">
+                    <strong>
+                      Para seguir agregando cartas, actualízate a premium
+                    </strong>
+                  </div>
+                  <div>
+                    <PayPal></PayPal>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <img
+                onClick={openModal}
+                className="icon-add"
+                src={iconAdd}
+                alt=""
+              />
+            )}
           </div>
         )}
       </div>

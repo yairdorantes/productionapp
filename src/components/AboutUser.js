@@ -32,32 +32,12 @@ const AboutUser = () => {
   };
   // const ref = useDetectClickOutside({ onTriggered: hideAboutUser });
 
-  // helpHttp()
-  //   .get(url)
-  //   .then((res) => {
-  //     console.log(res.user.score);
-  //     setScoreUser(res.user.score);
-  //     //  console.log(res.user.premium);
-  //     if (res.user.premium == true) {
-  //       setIsPremium(true);
-  //     } else {
-  //       setIsPremium(false);
-  //     }
-  //     if (!res.err) {
-  //       return;
-  //       //  console.log("no error getting userlogged info");
-  //     } else {
-  //       return;
-  //       // console.log(res);
-  //     }
-  //   });
-
   const getuser = () => {
     helpHttp()
       .get(url)
       .then((res) => {
         setIsPremium(res.user.premium);
-        console.log(isPremium);
+        // console.log(isPremium);
         setScoreUser(res.user.score);
       });
   };
@@ -82,55 +62,55 @@ const AboutUser = () => {
             isOpen={modalIsOpen}
             contentLabel="Minimal Modal Example"
           >
-            {/* <OutsideClickHandler
+            <OutsideClickHandler
               onOutsideClick={() => {
                 hideAboutUser();
               }}
-            > */}
-            <img
-              className="cross-out"
-              onClick={openModal}
-              src={crossOut}
-              alt=""
-            />
+            >
+              <img
+                className="cross-out"
+                onClick={openModal}
+                src={crossOut}
+                alt=""
+              />
 
-            <div className="container-info-inside-modal">
-              <div>
-                <h2 className="textito">
-                  ¡Bienvenido{" "}
-                  <span className={isPremium ? "shiny-text" : ""}>
-                    {console.log(isPremium)}
-                    {user.username}
+              <div className="container-info-inside-modal">
+                <div>
+                  <h2 className="textito">
+                    ¡Bienvenido{" "}
+                    <span className={isPremium ? "shiny-text" : ""}>
+                      {/* {console.log(isPremium)} */}
+                      {user.username}
+                    </span>
+                    !
+                  </h2>
+                  <h4 style={{ textAlign: "center" }}>
+                    Tu record es de: {scoreUser} pts
+                  </h4>
+                </div>
+
+                <div className="user-is-vip">
+                  <img className="vip-icon" src={vip} alt="" />
+                  <span>
+                    {isPremium
+                      ? "Eres usuario premium 😃!"
+                      : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
+                    {!isPremium && <PayPal></PayPal>}
                   </span>
-                  !
-                </h2>
-                <h4 style={{ textAlign: "center" }}>
-                  Tu record es de: {scoreUser} pts
-                </h4>
-              </div>
-
-              <div className="user-is-vip">
-                <img className="vip-icon" src={vip} alt="" />
-                <span>
-                  {isPremium
-                    ? "Eres usuario premium 😃!"
-                    : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
-                  {!isPremium && <PayPal></PayPal>}
-                </span>
-              </div>
-              {/* <button class="button-pro">
+                </div>
+                {/* <button class="button-pro">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
                 <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
               </svg>
               Unlock Pro
             </button> */}
 
-              <div className="icon-text-modal-logout" onClick={logoutUser}>
-                <img className="logout-icon" src={closeUser} alt="" />
-                <span className="logout-text">Cerrar sesión</span>
+                <div className="icon-text-modal-logout" onClick={logoutUser}>
+                  <img className="logout-icon" src={closeUser} alt="" />
+                  <span className="logout-text">Cerrar sesión</span>
+                </div>
               </div>
-            </div>
-            {/* </OutsideClickHandler> */}
+            </OutsideClickHandler>
           </Modal>
         </div>
       </div>

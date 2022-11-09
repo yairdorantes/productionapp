@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap");
-
+.leader-title {
+  background-image: linear-gradient(-10deg, #5fa6e8, #2455d0);
+  background-clip: text;
+  color: transparent;
+}
 legend {
   border: solid 5px #556ed5;
   padding: 10px;
@@ -8,6 +12,7 @@ legend {
 .leader-board {
   font-family: "Oswald", sans-serif;
   font-size: 15px;
+  cursor: pointer;
 }
 .container-legend-leader {
   display: flex;
