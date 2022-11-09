@@ -16,7 +16,10 @@ const customStyles = {
     color: "white",
     width: "270px",
     height: "450px",
-    backgroundColor: "#16181Cef",
+    backgroundColor: "#16181cf2",
+    border: "solid 1px #040615",
+    // backgroundColor: "#00000000",
+    outline: "none",
   },
   overlay: { zIndex: 999, backgroundColor: "rgba(0, 0, 0, 0)" },
 };

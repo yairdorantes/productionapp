@@ -116,7 +116,9 @@ const LeaderBoard = () => {
                   );
                 })
               )}
-              <div>Tu puntaje: {userData && userData.score}</div>
+              <div className="your-score-board">
+                Tu puntaje: {userData && userData.score}
+              </div>
             </div>
           </fieldset>
         </div>

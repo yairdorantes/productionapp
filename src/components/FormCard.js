@@ -13,7 +13,6 @@ const url = "https://englishapputc.herokuapp.com/api/cards/";
 const customStyles = {
   content: {
     // color: "white",
-
     width: "350px",
     height: "350px",
     backgroundColor: "#00000000",

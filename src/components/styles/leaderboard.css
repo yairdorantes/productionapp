@@ -106,3 +106,16 @@ legend {
 .hide-leaderboard {
   margin-top: -600px;
 }
+
+.your-score-board {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+}
+@media only screen and (max-width: 525px) {
+  .fieldset-leader {
+    width: 95%;
+    margin: auto;
+    /* background-color: #c4dc0c; */
+  }
+}
