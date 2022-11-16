@@ -46,7 +46,7 @@ const MenuBar = () => {
           </NavLink>
         </div>
 
-        <div className="link-my-menu">
+        {/* <div className="link-my-menu">
           <NavLink
             style={({ isActive }) =>
               isActive
@@ -65,7 +65,7 @@ const MenuBar = () => {
               alt=""
             />
           </NavLink>
-        </div>
+        </div> */}
         <div className="link-my-menu">
           <NavLink
             style={({ isActive }) =>

@@ -74,7 +74,7 @@ const LeaderBoard = () => {
               <div className="container-legend-leader">
                 <div>Posición</div>
                 <div>Usuario</div>
-                <div>Puntaje</div>
+                <div>XP</div>
               </div>
               {!tops ? (
                 <Loader></Loader>
@@ -117,7 +117,7 @@ const LeaderBoard = () => {
                 })
               )}
               <div className="your-score-board">
-                Tu puntaje: {userData && userData.score}
+                Tu XP: {userData && userData.score}
               </div>
             </div>
           </fieldset>

@@ -15,9 +15,11 @@ const PayPal = () => {
 
   if (paidFor) {
     alert("thanks");
+    window.location.reload();
   }
   if (error) {
     alert("error");
+    window.location.reload();
   }
 
   const test = {

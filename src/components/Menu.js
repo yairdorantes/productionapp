@@ -29,7 +29,7 @@ const Menu = () => {
               </div>
             </Link>
           </div>
-          <div>
+          {/* <div>
             <Link to="/shorts" className="link">
               <div className="square-background">
                 <div className="container-data-menu-option">
@@ -40,7 +40,7 @@ const Menu = () => {
                 </div>
               </div>
             </Link>
-          </div>
+          </div> */}
 
           <div>
             <Link to="/posts" className="link">

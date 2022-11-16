@@ -4,14 +4,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Mousewheel, Pagination, Keyboard } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import left from "../media/left-arrow.png";
-import right from "../media/right-arrow.png";
+// import left from "../media/left-arrow.png";
+// import right from "../media/right-arrow.png";
 import { useEffect, useState } from "react";
 import Loader from "./Loader";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import { helpHttp } from "../helpers/helpHttp";
 import MenuBar from "./MenuBar";
+import ReactMarkdown from "react-markdown";
 
 let url = "https://englishapputc.herokuapp.com/api/shortsetV2/";
 let manageScore = "https://englishapputc.herokuapp.com/api/shortsV2/";
@@ -102,9 +103,6 @@ const ShortsV2 = () => {
   const goBack = () => {
     currentVideo.currentTime = currentVideo.currentTime - 2;
   };
-  const PlayBtn = () => {
-    currentVideo.paused ? currentVideo.play() : currentVideo.pause();
-  };
 
   return (
     <>
@@ -118,7 +116,8 @@ const ShortsV2 = () => {
         modules={[Pagination, Mousewheel, Keyboard]}
         // cssMode={true}
         // pagination={true}
-        direction={"vertical"}
+        loop={true}
+        // direction={"vertical"}
         // noSwiping={true}
         // noSwipingClass={"swiper-slide"}
         // allowTouchMove={false}
@@ -178,7 +177,6 @@ const ShortsV2 = () => {
                 >
                   <div className="container-short">
                     <video
-                      onClick={PlayBtn}
                       src={short.short_url}
                       controls
                       // loop
@@ -193,7 +191,7 @@ const ShortsV2 = () => {
                           ? "Ocultar trasncripcion"
                           : "Mostrar trasncripcion"}
                       </button>
-                      <div className="container-arrows-video">
+                      {/* <div className="container-arrows-video">
                         <button
                           // style={{ marginRight: "10px" }}
                           className="btn-control-video"
@@ -204,7 +202,7 @@ const ShortsV2 = () => {
                         <button className="btn-control-video" onClick={advance}>
                           <img style={{ width: "25px" }} src={right} alt="" />
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="container-question-answer">
                       <h3
@@ -281,16 +279,18 @@ const ShortsV2 = () => {
                         </div>
                       </div>
                       <div className="container-text-short">
-                        <div>
-                          <p
-                            className={
-                              show
-                                ? `transcription-short`
-                                : "transcription-short hidden"
-                            }
-                          >
-                            {short.translation}
-                          </p>
+                        <div
+                          className={
+                            show
+                              ? `transcription-short`
+                              : "transcription-short hidden"
+                          }
+                        >
+                          <ReactMarkdown
+                            // remarkPlugins={[remarkGfm]}
+                            children={short.translation}
+                          ></ReactMarkdown>
+                          {/* {short.translation} */}
                         </div>
                       </div>
                     </div>

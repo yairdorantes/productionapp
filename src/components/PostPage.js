@@ -7,6 +7,16 @@ import { helpHttp } from "../helpers/helpHttp";
 import AuthContext from "../context/AuthContext";
 import { InView } from "react-intersection-observer";
 // import MenuBar from "./MenuBar";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from "react-device-detect";
+
 let url = "https://englishapputc.herokuapp.com/api/comments/";
 const parametros = {
   method: "GET",
@@ -28,6 +38,7 @@ const meses = [
   "nov",
   "dic",
 ];
+
 const PostPage = () => {
   let { user } = useContext(AuthContext);
 
@@ -113,7 +124,18 @@ const PostPage = () => {
               <img className="image-single-post" src={post.image_src} />
             </div>
 
-            <div className="box-text-post">{post.content}</div>
+            <div
+              className="box-text-post"
+              style={{
+                fontSize: isMobile ? "18px" : "20px",
+                padding: isMobile && "20px",
+              }}
+            >
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                children={post.content}
+              ></ReactMarkdown>
+            </div>
             <section>
               <InView
                 as="div"

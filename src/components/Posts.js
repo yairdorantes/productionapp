@@ -6,8 +6,13 @@ import { helpHttp } from "../helpers/helpHttp";
 import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import MenuBar from "./MenuBar";
+// import remarkGfm from "remark-gfm";
+
+const txt = ` ¿ada vez que buscas aprender \n\n  inglés\n rápido te encuentras con los mismos consejos de siempre?: Ve películas y series en inglés (con o sin subtítulos, dependiendo del nivel), escucha música y lee las letras, y lee libros de temas que te interesen, ¿estás buscando algo más que eso? \r\n\r\n\r\nSin duda, para iniciar con el pie derecho el aprendizaje de un idioma la clave está en el vocabulario. En muchos idiomas, la mayoría de actividades diarias, tales como viajar en transporte público o pedir comida en un restaurante, pueden ser realizadas con un aproximado de 300 palabras. Por esto, para aprender de manera rápida y fácil el idioma es básico conocer dichas palabras comunes.\r\n\r\nAsí como el anterior, en este artículo te encontrarás con una serie de consejos que van un paso más allá para que conozcas tips para aprender inglés con los que acelerarás tu curva de aprendizaje.\r\n\r\n¿Cómo elegir el mejor curso de inglés para ti? Conoce y descarga nuestro ebook para saber elegir el mejor curso de inglés  y dominar una segunda lengua.\r\n\r\nLa triada clásica para aprender inglés rápido\r\nEs importante que no descartes los tres tips para aprender inglés más conocidos. Se repiten constantemente porque son útiles, sin embargo, este artículo busca dar un paso más allá para ofrecer técnicas comprobadas que a veces están fuera del radar de estudiantes de inglés. Aún así, vale la pena partir de la base de dichos tres consejos:\r\n\r\nVe películas y series. Este consejo te permite pasar un rato de ocio mientras estudias inglés. Además te ayuda a conocer expresiones típicas.\r\n\r\nEscucha música. Las letras de canciones te dan acceso a la sonoridad de las palabras, acentos y te ayudan a aprender como pronunciar el inglés de manera correcta.\r\n\r\nLee libros. Ya sea ficción o no ficción, leer libros en inglés, desde historietas a los clásicos de la literatura inglesa, adquirirás vocabulario y gramática.`;
+
 let url = `https://englishapputc.herokuapp.com/api/postset/`;
 let like = "https://englishapputc.herokuapp.com/api/posts/";
+
 const params = {
   method: "GET",
   headers: {
