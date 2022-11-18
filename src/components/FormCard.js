@@ -54,6 +54,8 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi }) => {
       (form.file === "" && form.img_url === "")
     ) {
       alert("llena todos los campos por favor");
+    } else if (form.title.length > 23 || form.meaning.length > 23) {
+      alert("demasiado larga UwU");
     } else {
       let options = {
         body: data,

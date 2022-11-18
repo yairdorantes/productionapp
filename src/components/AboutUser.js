@@ -10,21 +10,26 @@ import vip from "../media/vip.png";
 import crossOut from "../media/crossout.png";
 import OutsideClickHandler from "react-outside-click-handler";
 import "./styles/shinytext.css";
+
 // Modal.defaultStyles.overlay.backgroundColor = "rgba(0, 0, 0, 0.83)";
 const customStyles = {
   content: {
     color: "white",
     width: "270px",
     height: "450px",
-    backgroundColor: "#16181cf2",
+    backgroundColor: "black",
     border: "solid 1px #040615",
-    // backgroundColor: "#00000000",
     outline: "none",
+    borderRadius: "15px",
+    left: "50%",
+    transform: "translate(-50%,0%)",
+    top: "10px",
+    transition: "2s ease-in-out",
   },
   overlay: { zIndex: 999, backgroundColor: "rgba(0, 0, 0, 0)" },
 };
 
-const AboutUser = () => {
+const AboutUser = ({ wasUp }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   let { user, logoutUser } = useContext(AuthContext);
   const [scoreUser, setScoreUser] = useState();
@@ -36,6 +41,7 @@ const AboutUser = () => {
   // const ref = useDetectClickOutside({ onTriggered: hideAboutUser });
 
   const getuser = () => {
+    console.log("loli");
     helpHttp()
       .get(url)
       .then((res) => {
@@ -48,6 +54,9 @@ const AboutUser = () => {
   useEffect(() => {
     getuser();
   }, []);
+  useEffect(() => {
+    wasUp && getuser();
+  }, [wasUp]);
 
   const openModal = (e) => {
     // e.preventDefault();
@@ -56,67 +65,73 @@ const AboutUser = () => {
 
   return (
     <>
-      <div className="userinfo-container">
-        <div className="avatar">
-          <img onClick={openModal} src={usuario} alt="" />
-          <Modal
-            ariaHideApp={false}
-            style={customStyles}
-            isOpen={modalIsOpen}
-            contentLabel="Minimal Modal Example"
-          >
-            <OutsideClickHandler
-              onOutsideClick={() => {
-                hideAboutUser();
-              }}
-            >
-              <img
-                className="cross-out"
-                onClick={openModal}
-                src={crossOut}
-                alt=""
-              />
+      <img
+        style={{
+          filter: modalIsOpen ? "brightness(100%)" : "brightness(45%)",
+        }}
+        className="icon-menu-bar"
+        onClick={openModal}
+        src={usuario}
+        alt=""
+      />
+      <Modal
+        ariaHideApp={false}
+        style={customStyles}
+        isOpen={modalIsOpen}
+        contentLabel="Minimal Modal Example"
+      >
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            hideAboutUser();
+          }}
+        >
+          <img
+            className="cross-out"
+            onClick={openModal}
+            src={crossOut}
+            alt=""
+          />
 
-              <div className="container-info-inside-modal">
-                <div>
-                  <h2 className="textito">
-                    ¡Bienvenido{" "}
-                    <span className={isPremium ? "shiny-text" : ""}>
-                      {/* {console.log(isPremium)} */}
-                      {user.username}
-                    </span>
-                    !
-                  </h2>
-                  <h4 style={{ textAlign: "center" }}>
-                    Tu record es de: {scoreUser} pts
-                  </h4>
-                </div>
+          <div className="container-info-inside-modal">
+            <div>
+              <h2 className="textito">
+                ¡Bienvenido{" "}
+                <span className={isPremium ? "shiny-text" : ""}>
+                  {/* {console.log(isPremium)} */}
+                  {user.username}
+                </span>
+                !
+              </h2>
+              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                {scoreUser} XP
+              </h4>
+            </div>
 
-                <div className="user-is-vip">
-                  <img className="vip-icon" src={vip} alt="" />
-                  <span>
-                    {isPremium
-                      ? "Eres usuario premium 😃!"
-                      : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
-                    {!isPremium && <PayPal></PayPal>}
-                  </span>
-                </div>
-                {/* <button class="button-pro">
+            <div className="user-is-vip">
+              <img className="vip-icon" src={vip} alt="" />
+              <span>
+                <strong>
+                  {isPremium
+                    ? "Eres usuario premium 😃!"
+                    : "Todavia no eres usuario premium ☹️ (puedes serlo pagando aqui⬇)"}
+                  {!isPremium && <PayPal></PayPal>}
+                </strong>
+              </span>
+            </div>
+            {/* <button class="button-pro">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 24">
                 <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
               </svg>
               Unlock Pro
             </button> */}
 
-                <div className="icon-text-modal-logout" onClick={logoutUser}>
-                  <img className="logout-icon" src={closeUser} alt="" />
-                  <span className="logout-text">Cerrar sesión</span>
-                </div>
-              </div>
-            </OutsideClickHandler>
-          </Modal>
-        </div>
-      </div>
+            <div className="icon-text-modal-logout" onClick={logoutUser}>
+              <img className="logout-icon" src={closeUser} alt="" />
+              <span className="logout-text">Cerrar sesión</span>
+            </div>
+          </div>
+        </OutsideClickHandler>
+      </Modal>
     </>
   );
 };

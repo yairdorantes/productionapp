@@ -21,12 +21,12 @@ import OutsideClickHandler from "react-outside-click-handler";
 import next from "../media/next3.png";
 
 import { isMobile } from "react-device-detect";
-
+let url = "";
 const urlImageCard = "https://res.cloudinary.com/tolumaster/image/upload/v1/";
 
 const Cards = () => {
   let { user } = useContext(AuthContext);
-  let urlIncreaseScore = `https://englishapputc.herokuapp.com/menu${user.user_id}`;
+  let urlIncreaseScore = `https://englishapputc.herokuapp.com/api/increase/${user.user_id}`;
 
   const paramsUrl = useParams();
   const [isActive, setIsActive] = useState(true);
@@ -168,7 +168,7 @@ const Cards = () => {
 
   return (
     <>
-      <AboutUser></AboutUser>
+      {/* <AboutUser wasUp={result}></AboutUser> */}
 
       <div className="all-cards">
         {paramsUrl.section === "mis-cartas" && (
@@ -391,7 +391,7 @@ const Cards = () => {
         openModal={openModal}
       ></FormCard>
 
-      <MenuBar></MenuBar>
+      <MenuBar wasUp={result}></MenuBar>
     </>
   );
 };

@@ -53,8 +53,8 @@
   margin: 15px;
   border-radius: 50%;
 }
-.avatar > img {
-  width: 45px;
+.user-data-icon {
+  width: 40px;
 }
 
 .textito {

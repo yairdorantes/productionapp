@@ -5,7 +5,8 @@ import video from "../media/play.png";
 import tips from "../media/blog.png";
 import menus from "../media/menu.png";
 import back from "../media/undo.png";
-const MenuBar = () => {
+import AboutUser from "./AboutUser";
+const MenuBar = ({ wasUp }) => {
   const navigate = useNavigate();
 
   return (
@@ -23,6 +24,11 @@ const MenuBar = () => {
               src={menus}
               alt=""
             />
+          </NavLink>
+        </div>
+        <div className="link-my-menu">
+          <NavLink>
+            <AboutUser wasUp={wasUp}></AboutUser>
           </NavLink>
         </div>
         <div className="link-my-menu">
@@ -46,26 +52,6 @@ const MenuBar = () => {
           </NavLink>
         </div>
 
-        {/* <div className="link-my-menu">
-          <NavLink
-            style={({ isActive }) =>
-              isActive
-                ? {
-                    filter: "brightness(100%)",
-                  }
-                : { filter: "brightness(45%)" }
-            }
-            className="link-element"
-            to="/shorts"
-          >
-            <img
-              icon-name="video"
-              className={"icon-menu-bar"}
-              src={video}
-              alt=""
-            />
-          </NavLink>
-        </div> */}
         <div className="link-my-menu">
           <NavLink
             style={({ isActive }) =>

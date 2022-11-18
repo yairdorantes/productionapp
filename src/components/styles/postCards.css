@@ -6,7 +6,6 @@
 .container-posts {
   /* font-family: "Roboto", sans-serif; */
   font-family: "Mulish", sans-serif;
-
   font-weight: 400;
 
   width: 100vw;
@@ -19,8 +18,8 @@
 .box-img-post-card {
   background-color: aqua;
   width: 100%;
-  height: 150px;
-  min-height: 155px;
+  height: 155px;
+  /* min-height: 155px; */
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   background-size: cover;
