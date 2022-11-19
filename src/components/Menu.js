@@ -12,7 +12,7 @@ const Menu = () => {
     <>
       {console.log("welcome yair heroku")}
       <div className="bg-menu">
-        <AboutUser />
+        {/* <AboutUser /> */}
         <LeaderBoard></LeaderBoard>
         {/* <div className="places-points">jjaaj</div> */}
 

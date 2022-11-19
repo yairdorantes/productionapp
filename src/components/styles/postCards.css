@@ -4,16 +4,18 @@
   color: rgb(255, 255, 255);
 }
 .container-posts {
+  margin: auto;
+  /* text-align: center; */
   /* font-family: "Roboto", sans-serif; */
   font-family: "Mulish", sans-serif;
   font-weight: 400;
-
-  width: 100vw;
+  max-width: 1000px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   margin-bottom: 100px;
+  gap: 20px;
 }
 .box-img-post-card {
   background-color: aqua;
@@ -29,7 +31,7 @@
 .card-post {
   position: relative;
   width: 250px;
-  margin: 10px;
+  /* margin: 10px; */
   height: 350px;
   background-color: #1c1b29;
   border-top-left-radius: 5px;

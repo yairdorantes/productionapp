@@ -174,7 +174,9 @@ const Cards = () => {
         {paramsUrl.section === "mis-cartas" && (
           <div className="del-cards">
             <NavLink to="/delete">
-              <button className="btn-delete-cards">Eliminar/Editar</button>
+              <button className="btn-delete-cards">
+                <strong>Eliminar ó Editar</strong>
+              </button>
             </NavLink>
           </div>
         )}

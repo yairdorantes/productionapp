@@ -27,11 +27,6 @@ const MenuBar = ({ wasUp }) => {
           </NavLink>
         </div>
         <div className="link-my-menu">
-          <NavLink>
-            <AboutUser wasUp={wasUp}></AboutUser>
-          </NavLink>
-        </div>
-        <div className="link-my-menu">
           <NavLink
             style={({ isActive }) =>
               isActive
@@ -72,7 +67,7 @@ const MenuBar = ({ wasUp }) => {
             />
           </NavLink>
         </div>
-        <div className="link-my-menu">
+        {/* <div className="link-my-menu">
           <div onClick={() => navigate(-1)}>
             <img
               style={{ filter: "brightness(70%)" }}
@@ -82,6 +77,11 @@ const MenuBar = ({ wasUp }) => {
               alt=""
             />
           </div>
+        </div> */}
+        <div className="link-my-menu">
+          <NavLink>
+            <AboutUser wasUp={wasUp}></AboutUser>
+          </NavLink>
         </div>
       </div>
     </div>
