@@ -3,7 +3,6 @@ import first from "../media/first.png";
 import second from "../media/second.png";
 import third from "../media/third.png";
 import usuario from "../media/user.png";
-import trofeo from "../media/ganador.png";
 import { useState } from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { helpHttp } from "../helpers/helpHttp";
@@ -12,7 +11,29 @@ import Loader from "./Loader";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContext";
 import "./styles/shinytext.css";
-const LeaderBoard = () => {
+import Modal from "react-modal";
+import { isMobile } from "react-device-detect";
+// import crossOut from "../media/crossout.png";
+
+const customStyles = {
+  content: {
+    color: "white",
+    width: isMobile ? "100%" : "500px",
+    height: isMobile ? "62%" : "510px",
+    border: "",
+    outline: "none",
+    borderRadius: "15px",
+    left: "50%",
+    top: "10%",
+    transform: "translate(-50%)",
+    backgroundColor: "#00000000",
+
+    // top: "10px",
+    transition: "2s ease-in-out",
+  },
+  overlay: { zIndex: 999, backgroundColor: "#18191ab1" },
+};
+const LeaderBoard = ({ isBoard, hideLeaderboard }) => {
   let { user } = useContext(AuthContext);
   const [userData, setUserData] = useState();
   const [tops, setTops] = useState([]);
@@ -31,98 +52,96 @@ const LeaderBoard = () => {
       });
   };
 
-  const [isBoard, setIsBoard] = useState(false);
-  const handleLeaderboard = () => {
-    isBoard ? setIsBoard(false) : setIsBoard(true);
-  };
-  const hideLeaderboard = () => {
-    setIsBoard(false);
-  };
   useEffect(() => {
     getTop();
   }, []);
 
   return (
     <>
-      <OutsideClickHandler
-        onOutsideClick={() => {
-          hideLeaderboard();
-        }}
-      >
-        <div onClick={handleLeaderboard} className="leader-board">
-          <img className="trofeo" src={trofeo} alt="" />
+      <Modal ariaHideApp={false} style={customStyles} isOpen={isBoard}>
+        <OutsideClickHandler
+          onOutsideClick={() => {
+            hideLeaderboard();
+          }}
+        >
+          {/* <img
+            onClick={() => {
+              hideLeaderboard();
+              console.log("clickado");
+            }}
+            src={crossOut}
+            alt=""
+            className="tache-leader"
+          /> */}
           <div
             className={
-              !isBoard ? "text-board-img" : "text-board-img hide-text-board-img"
+              isBoard
+                ? "container-leader-board"
+                : "container-leader-board hide-leaderboard "
             }
           >
-            Tabla de liderazgo
-          </div>
-        </div>
-        <div
-          className={
-            isBoard
-              ? "container-leader-board"
-              : "container-leader-board hide-leaderboard "
-          }
-        >
-          <fieldset className="fieldset-leader">
-            <legend>
-              <h2 className="leader-title">Tabla de liderazgo</h2>
-            </legend>
-            <div className="container-content-leader">
-              <div className="container-legend-leader">
-                <div>Posición</div>
-                <div>Usuario</div>
-                <div>XP</div>
-              </div>
-              {!tops ? (
-                <Loader></Loader>
-              ) : (
-                tops.map((top, key) => {
-                  return (
-                    <div key={key} className="container-place-icons">
-                      <div className="container-place-user">
-                        <div>
-                          <img
-                            className="place-icon"
-                            src={
-                              (key === 0 && first) ||
-                              (key === 1 && second) ||
-                              (key === 2 && third)
-                            }
-                            alt=""
-                          />
-                        </div>
-                        <div className="icon-username">
+            <fieldset
+              className={
+                isMobile ? "fieldset-leader leader-mobile" : "fieldset-leader"
+              }
+            >
+              <legend>
+                <h2 className="leader-title">XP más altos</h2>
+              </legend>
+              <div className="container-content-leader">
+                <div className="container-legend-leader">
+                  <div>Posición</div>
+                  <div>Usuario</div>
+                  <div>XP</div>
+                </div>
+                {!tops ? (
+                  <Loader></Loader>
+                ) : (
+                  tops.map((top, key) => {
+                    return (
+                      <div key={key} className="container-place-icons">
+                        <div className="container-place-user">
                           <div>
                             <img
-                              className="user-icon-leader"
-                              src={usuario}
+                              className="place-icon"
+                              src={
+                                (key === 0 && first) ||
+                                (key === 1 && second) ||
+                                (key === 2 && third)
+                              }
                               alt=""
                             />
-                            <div
-                              className={
-                                top.premium === true ? "shiny-text" : ""
-                              }
-                            >
-                              {top.username}
+                          </div>
+                          <div className="icon-username">
+                            <div>
+                              <img
+                                className="user-icon-leader"
+                                src={usuario}
+                                alt=""
+                              />
+                              <div
+                                className={
+                                  top.premium === true ? "shiny-text" : ""
+                                }
+                              >
+                                {top.username}
+                              </div>
                             </div>
                           </div>
+                          <div>{top.score}</div>
                         </div>
-                        <div>{top.score}</div>
                       </div>
-                    </div>
-                  );
-                })
-              )}
-              <div className="your-score-board">
-                Tu XP: {userData && userData.score}
+                    );
+                  })
+                )}
+                <div className="your-score-board">
+                  Tu XP: {userData && userData.score}
+                </div>
               </div>
-            </div>
-          </fieldset>
-        </div>
-      </OutsideClickHandler>
+            </fieldset>
+          </div>
+        </OutsideClickHandler>
+      </Modal>
     </>
   );
 };

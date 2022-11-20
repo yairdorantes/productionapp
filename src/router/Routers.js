@@ -1,8 +1,7 @@
-import { Routes, Route, Form } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Cards from "../components/Cards";
 // import LoginAuth from "../components/LoginAuth";
 import LoginPage from "../components/LoginPage";
-import Menu from "../components/Menu";
 import Session from "../components/Session";
 import { AuthProvider } from "../context/AuthContext";
 
@@ -12,8 +11,8 @@ import Posts from "../components/Posts";
 import PostPage from "../components/PostPage";
 // import Stripe from "../components/Stripe";
 import CardsMenu from "../components/CardsMenu";
-import FormCard from "../components/FormCard";
 import DeleteCards from "../components/DeleteCards";
+import MenuV2 from "../components/MenuV2";
 const Routers = () => {
   return (
     <AuthProvider>
@@ -29,11 +28,11 @@ const Routers = () => {
           <Route path="/shorts" element={<ShortsV2 />}></Route>
           <Route path="/posts" element={<Posts />}></Route>
           <Route path="/postpage/:id" element={<PostPage />}></Route>
-          <Route path="/delete" element={<DeleteCards />}></Route>
+          <Route path="/cards/delete" element={<DeleteCards />}></Route>
           {/* <Route path="/form-card" element={<FormCard />}></Route> */}
 
           {/* <Route path="/stripe" element={<Stripe />}></Route> */}
-          <Route path="/menu" element={<Menu />}></Route>
+          <Route path="/menu" element={<MenuV2 />}></Route>
         </Route>
       </Routes>
     </AuthProvider>

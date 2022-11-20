@@ -1,13 +1,12 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink /* useNavigate*/ } from "react-router-dom";
 import "./styles/menuBar.css";
 import cards from "../media/cardss.png";
-import video from "../media/play.png";
 import tips from "../media/blog.png";
-import menus from "../media/menu.png";
-import back from "../media/undo.png";
+import menus from "../media/menus.png";
+// import back from "../media/undo.png";
 import AboutUser from "./AboutUser";
 const MenuBar = ({ wasUp }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div className="container-menu-bar">

@@ -8,7 +8,6 @@ import { Pagination, EffectCards, Mousewheel, Keyboard } from "swiper";
 import wordSound from "../media/cards/audio.png";
 import iconAdd from "../media/add.png";
 import Loader from "./Loader";
-import AboutUser from "./AboutUser";
 import CardTuto from "./CardTuto";
 import MenuBar from "./MenuBar";
 import { Link, NavLink, useParams } from "react-router-dom";
@@ -173,7 +172,7 @@ const Cards = () => {
       <div className="all-cards">
         {paramsUrl.section === "mis-cartas" && (
           <div className="del-cards">
-            <NavLink to="/delete">
+            <NavLink to="/cards/delete">
               <button className="btn-delete-cards">
                 <strong>Eliminar ó Editar</strong>
               </button>

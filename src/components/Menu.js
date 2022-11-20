@@ -4,9 +4,7 @@ import video from "../media/play.png";
 import tips from "../media/blog.png";
 
 import { Link } from "react-router-dom";
-import AboutUser from "./AboutUser";
 import LeaderBoard from "./LeaderBoard";
-
 const Menu = () => {
   return (
     <>
