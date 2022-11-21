@@ -13,6 +13,7 @@ import AuthContext from "../context/AuthContext";
 import "./styles/shinytext.css";
 import Modal from "react-modal";
 import { isMobile } from "react-device-detect";
+import mySite from "./Domain";
 // import crossOut from "../media/crossout.png";
 
 const customStyles = {
@@ -39,12 +40,12 @@ const LeaderBoard = ({ isBoard, hideLeaderboard }) => {
   const [tops, setTops] = useState([]);
   const getTop = () => {
     helpHttp()
-      .get("https://englishapputc.herokuapp.com/api/topusers/")
+      .get(`${mySite}topusers/`)
       .then((res) => {
         setTops(res.topuser);
       });
     helpHttp()
-      .get(`https://englishapputc.herokuapp.com/api/users/${user.user_id}`)
+      .get(`${mySite}users/${user.user_id}`)
       .then((res) => {
         setUserData(res.user);
         console.log(res);

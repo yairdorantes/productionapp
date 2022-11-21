@@ -9,6 +9,10 @@
   z-index: 999;
   margin-bottom: 10px;
 }
+.bigger {
+  width: 10000px;
+  /* font-size: 10.5em; */
+}
 .container-menus-bar {
   display: flex;
   border-style: solid;
@@ -26,7 +30,7 @@
   color: white;
 }
 .icon-menu-bar {
-  width: 30px;
+  width: 34px;
 }
 
 .low-brightness {

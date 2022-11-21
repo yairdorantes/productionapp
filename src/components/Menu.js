@@ -8,7 +8,6 @@ import LeaderBoard from "./LeaderBoard";
 const Menu = () => {
   return (
     <>
-      {console.log("welcome yair heroku")}
       <div className="bg-menu">
         {/* <AboutUser /> */}
         <LeaderBoard></LeaderBoard>

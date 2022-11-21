@@ -9,8 +9,8 @@ import crossOut from "../media/crossout.png";
 import LoaderThin from "./LoaderThin";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useEffect } from "react";
-
-const url = "https://englishapputc.herokuapp.com/api/cards/";
+import mySite from "./Domain";
+const url = `${mySite}cards/`;
 
 const customStyles = {
   content: {
@@ -96,7 +96,7 @@ const FormCard = ({ modalIsOpen, openModal, fetchApi, cardData }) => {
       console.log(options);
 
       if (cardData) {
-        let urlEditCard = `https://englishapputc.herokuapp.com/api/card-edit/${cardData.id}`;
+        let urlEditCard = `${mySite}card-edit/${cardData.id}`;
 
         setIsLoading(true);
         helpHttp()

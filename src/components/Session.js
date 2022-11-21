@@ -2,6 +2,10 @@ import "./styles/formStyles.css";
 import React, { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
+
+import eyes from "../media/eye2.png";
+import closeye from "../media/eyeclose.png";
+
 const initialForm = {
   username: "",
   //email: "",
@@ -9,6 +13,7 @@ const initialForm = {
 };
 const Session = () => {
   let { loginUser } = useContext(AuthContext);
+  const [eye, setEye] = useState(false);
 
   const [form, setForm] = useState(initialForm);
   //const [user, setUser] = useState(null);
@@ -24,6 +29,10 @@ const Session = () => {
     setForm(initialForm);
   };
 
+  const toggleEye = () => {
+    eye ? setEye(false) : setEye(true);
+  };
+
   return (
     <>
       <div className="login-form">
@@ -37,15 +46,26 @@ const Session = () => {
               placeholder="usuario"
               value={form.username}
             />
-
             <input
               onChange={handleChange}
               className="parrafo"
               name="password"
               placeholder="Password"
-              type="password"
+              type={eye ? "text" : "password"}
               value={form.password}
+              endAdornm
             />
+            {form.password != "" && (
+              <span className="eye">
+                <img
+                  className="eye-icon"
+                  onClick={toggleEye}
+                  src={eye ? eyes : closeye}
+                  alt=""
+                />
+              </span>
+            )}
+            {/* <input type="password" /> */}
             <div className="btn-register">
               <button type="submit">Ingresar</button>
               <Link

@@ -10,7 +10,7 @@ import iconAdd from "../media/add.png";
 import Loader from "./Loader";
 import CardTuto from "./CardTuto";
 import MenuBar from "./MenuBar";
-import { Link, NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import FormCard from "./FormCard";
 import PayPal from "./PayPal";
@@ -18,14 +18,16 @@ import { helpHttp } from "../helpers/helpHttp";
 import Modal from "react-modal";
 import OutsideClickHandler from "react-outside-click-handler";
 import next from "../media/next3.png";
-
+import { useSpeechSynthesis } from "react-speech-kit";
+import mySite from "./Domain";
 import { isMobile } from "react-device-detect";
 let url = "";
 const urlImageCard = "https://res.cloudinary.com/tolumaster/image/upload/v1/";
 
 const Cards = () => {
   let { user } = useContext(AuthContext);
-  let urlIncreaseScore = `https://englishapputc.herokuapp.com/api/increase/${user.user_id}`;
+
+  let urlIncreaseScore = `${mySite}increase/${user.user_id}`;
 
   const paramsUrl = useParams();
   const [isActive, setIsActive] = useState(true);
@@ -71,8 +73,8 @@ const Cards = () => {
   const fetchAPi = async () => {
     // console.log("fetched");
     paramsUrl.section === "mis-cartas"
-      ? (url = `https://englishapputc.herokuapp.com/api/usercards/${user.user_id}`)
-      : (url = `https://englishapputc.herokuapp.com/api/cards/${paramsUrl.section}`);
+      ? (url = `${mySite}usercards/${user.user_id}`)
+      : (url = `${mySite}cards/${paramsUrl.section}`);
     const response = await fetch(url, params);
     const responseJSON = await response.json();
     setCards(responseJSON);
@@ -82,7 +84,7 @@ const Cards = () => {
 
   const getUserData = () => {
     helpHttp()
-      .get(`https://englishapputc.herokuapp.com/api/users/${user.user_id}`)
+      .get(`${mySite}users/${user.user_id}`)
       .then((res) => {
         // console.log(res.user.premium);
         setIsPremium(res.user.premium);
@@ -104,7 +106,6 @@ const Cards = () => {
     setIsSent(false);
   };
 
-  var speechSynthesis = require("speech-synthesis");
   const openModal = (e) => {
     // e.preventDefault();
     modalIsOpen ? setModalIsOpen(false) : setModalIsOpen(true);
@@ -120,20 +121,21 @@ const Cards = () => {
   }
   const generateQuestion = () => {
     const lista = [];
-
     const cartas = cards.cards;
-    const randomsGenerated = differentRandom();
-    const cardChoosen = cartas[randomsGenerated[0]];
-    lista.push(cardChoosen);
-    setCardPicked(cardChoosen);
-
-    const answerOne = cartas[randomsGenerated[1]];
-    lista.push(answerOne);
-
-    const answerTwo = cartas[randomsGenerated[2]];
-    lista.push(answerTwo);
-
-    setAnswers(lista.sort(() => Math.random() - 0.5));
+    if (cartas.length < 3) {
+      hideQuestion();
+      alert("Necesitas agregar almenos 3 cartas para generar un Quiz");
+    } else {
+      const randomsGenerated = differentRandom();
+      const cardChoosen = cartas[randomsGenerated[0]];
+      lista.push(cardChoosen);
+      setCardPicked(cardChoosen);
+      const answerOne = cartas[randomsGenerated[1]];
+      lista.push(answerOne);
+      const answerTwo = cartas[randomsGenerated[2]];
+      lista.push(answerTwo);
+      setAnswers(lista.sort(() => Math.random() - 0.5));
+    }
   };
 
   const handleChangeRadio = (e) => {
@@ -165,6 +167,20 @@ const Cards = () => {
     mode ? setMode(false) : setMode(true);
   };
 
+  const { speak, voices, cancel, speaking } = useSpeechSynthesis();
+  let voice;
+  voices.forEach((item) => {
+    if (item.lang === "en-US") {
+      voice = item;
+    }
+  });
+  const speakCard = (word) => {
+    speak({
+      text: word,
+      voice,
+    });
+    speaking && cancel();
+  };
   return (
     <>
       {/* <AboutUser wasUp={result}></AboutUser> */}
@@ -211,29 +227,20 @@ const Cards = () => {
                 >
                   <div className="container-card">
                     <div className="card">
-                      {/* <img className="image-cards" src={card.imageURL} alt="" /> */}
                       <div className="contenido-card">
-                        <h3
-                          // title="testt"
-                          onClick={handleDisplay}
-                          className="card-text"
-                        >
+                        <h3 onClick={handleDisplay} className="card-text">
                           {isActive ? card.cardTitle : card.cardMeaning}
                         </h3>
-                        <button
-                          className="btn-sound-card"
-                          onClick={() => {
-                            speechSynthesis(card.cardTitle, "en-US");
-                            // console.log(card.cardTitle);
-                          }}
-                        >
-                          <img className="word-sound" src={wordSound} alt="" />
-                        </button>
-                        <div>
-                          {/* <img src={urlImageCard + card.cardImage} alt="" /> */}
-                        </div>
                       </div>
                     </div>
+                    <button
+                      className="btn-sound-card"
+                      onClick={() => {
+                        speakCard(card.cardTitle);
+                      }}
+                    >
+                      <img className="word-sound" src={wordSound} alt="" />
+                    </button>
                   </div>
                 </SwiperSlide>
               );
@@ -265,116 +272,118 @@ const Cards = () => {
             )}
           </div>
         )}
-        <Modal
-          // className="modal-card-question"
-          ariaHideApp={false}
-          style={customStyles}
-          isOpen={modalQuestion}
-          contentLabel="Minimal Modal Example"
-          // className="modal-quiz"
-        >
-          <OutsideClickHandler
-            onOutsideClick={() => {
-              hideQuestion();
-            }}
+        {cards.cards && cards.cards.length > 3 && (
+          <Modal
+            // className="modal-card-question"
+            ariaHideApp={false}
+            style={customStyles}
+            isOpen={modalQuestion}
+            contentLabel="Minimal Modal Example"
+            // className="modal-quiz"
           >
-            <label className="switch">
-              <input type="checkbox" onClick={toggleMode} />
-              <span className="slider"></span>
-            </label>
-            {cardPicked && (
-              <>
-                <div
-                  style={{ color: mode ? "black" : "white" }}
-                  className="container-question-card"
-                >
-                  <div className="question-card">
-                    Elige el significado de
-                    <strong> {cardPicked.cardTitle}</strong>
-                  </div>
-                  <div className="parent-answers">
-                    {answers &&
-                      answers.map((answer, key) => {
-                        return (
-                          <div key={answer.id} className="box-answers">
-                            <label className="rad-label">
-                              <input
-                                type="radio"
-                                className="rad-input"
-                                name="rad"
-                                onChange={handleChangeRadio}
-                                value={answer.cardMeaning}
-                              />
-                              <div className="rad-design"></div>
-                              <div className="rad-text">
-                                {answer.cardMeaning}
-                              </div>
-                            </label>
-                          </div>
-                        );
-                      })}
-                  </div>
+            <OutsideClickHandler
+              onOutsideClick={() => {
+                hideQuestion();
+              }}
+            >
+              <label className="switch">
+                <input type="checkbox" onClick={toggleMode} />
+                <span className="slider"></span>
+              </label>
+              {cardPicked && (
+                <>
+                  <div
+                    style={{ color: mode ? "black" : "white" }}
+                    className="container-question-card"
+                  >
+                    <div className="question-card">
+                      Elige el significado de
+                      <strong> {cardPicked.cardTitle}</strong>
+                    </div>
+                    <div className="parent-answers">
+                      {answers &&
+                        answers.map((answer, key) => {
+                          return (
+                            <div key={answer.id} className="box-answers">
+                              <label className="rad-label">
+                                <input
+                                  type="radio"
+                                  className="rad-input"
+                                  name="rad"
+                                  onChange={handleChangeRadio}
+                                  value={answer.cardMeaning}
+                                />
+                                <div className="rad-design"></div>
+                                <div className="rad-text">
+                                  {answer.cardMeaning}
+                                </div>
+                              </label>
+                            </div>
+                          );
+                        })}
+                    </div>
 
-                  <div className="container-result-message">
-                    <div
-                      className={
-                        isSent
-                          ? result
-                            ? "message-question answer-right"
-                            : "message-question answer-wrong"
-                          : "hide"
-                      }
-                    >
-                      {result ? (
-                        "Correcto"
-                      ) : (
-                        <span>
-                          Incorrecto
-                          <br />
-                          {/* <span style={{ fontSize: "15px" }}>
+                    <div className="container-result-message">
+                      <div
+                        className={
+                          isSent
+                            ? result
+                              ? "message-question answer-right"
+                              : "message-question answer-wrong"
+                            : "hide"
+                        }
+                      >
+                        {result ? (
+                          "Correcto"
+                        ) : (
+                          <span>
+                            Incorrecto
+                            <br />
+                            {/* <span style={{ fontSize: "15px" }}>
                             Respuesta: <strong>{cardPicked.cardMeaning}</strong>
                           </span> */}
-                        </span>
-                      )}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="parent-btn">
+                      <button
+                        className={isSent ? "hide" : "btn-send-answer"}
+                        onClick={handleAnswer}
+                      >
+                        Enviar
+                      </button>
+                    </div>
+                    <div
+                      className="next-quest"
+                      style={{
+                        bottom: isSent ? "0" : "-65px",
+                      }}
+                      onClick={nextQuestion}
+                    >
+                      <img
+                        onClick={nextQuestion}
+                        className="next-icon"
+                        src={next}
+                        alt=""
+                      />
                     </div>
                   </div>
-
-                  <div className="parent-btn">
-                    <button
-                      className={isSent ? "hide" : "btn-send-answer"}
-                      onClick={handleAnswer}
-                    >
-                      Enviar
-                    </button>
-                  </div>
                   <div
-                    className="next-quest"
-                    style={{
-                      bottom: isSent ? "0" : "-65px",
-                    }}
-                    onClick={nextQuestion}
+                    className={
+                      result
+                        ? "upScore-indicator upScoreAnimation"
+                        : "upScore-indicator"
+                    }
                   >
-                    <img
-                      onClick={nextQuestion}
-                      className="next-icon"
-                      src={next}
-                      alt=""
-                    />
+                    <strong>+1XP</strong>
                   </div>
-                </div>
-                <div
-                  className={
-                    result
-                      ? "upScore-indicator upScoreAnimation"
-                      : "upScore-indicator"
-                  }
-                >
-                  <strong>+1XP</strong>
-                </div>
-              </>
-            )}
-          </OutsideClickHandler>
-        </Modal>
+                </>
+              )}
+            </OutsideClickHandler>
+          </Modal>
+        )}
         {isPremium && (
           <div className="cont-btn-review">
             <button

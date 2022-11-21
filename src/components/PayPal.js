@@ -2,6 +2,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useContext, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { helpHttp } from "../helpers/helpHttp";
+import mySite from "./Domain";
 const PayPal = () => {
   let { user } = useContext(AuthContext);
 
@@ -56,9 +57,7 @@ const PayPal = () => {
           handleApprove(data.orderID);
 
           helpHttp()
-            .put(
-              `https://englishapputc.herokuapp.com/api/makepremium/${user.user_id}`
-            )
+            .put(`${mySite}makepremium/${user.user_id}`)
             .then((res) => {
               console.log(res);
               if (!res.err) {

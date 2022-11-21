@@ -10,6 +10,7 @@ import Modal from "react-modal";
 import MenuBar from "./MenuBar";
 import "./styles/modifyCards.css";
 import FormCard from "./FormCard";
+import mySite from "./Domain";
 const customStyles = {
   content: {
     // color: "white",
@@ -35,7 +36,7 @@ const DeleteCards = () => {
   const [editOrDelete, setEditOrDelete] = useState();
   //   const [actualCardImg, setActualCardImg] = useState("");
   const fetchAPi = async () => {
-    let url = `https://englishapputc.herokuapp.com/api/usercards/${user.user_id}`;
+    let url = `${mySite}usercards/${user.user_id}`;
 
     const response = await fetch(url);
     const responseJSON = await response.json();
@@ -43,7 +44,7 @@ const DeleteCards = () => {
     console.log(responseJSON);
   };
   const deleteCardF = () => {
-    let urlDel = `https://englishapputc.herokuapp.com/api/delcard/${cardId}`;
+    let urlDel = `${mySite}delcard/${cardId}`;
 
     helpHttp()
       .del(urlDel)

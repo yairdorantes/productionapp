@@ -2,10 +2,11 @@ import "./styles/formStyles.css";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-
 import { helpHttp } from "../helpers/helpHttp";
-let url = "https://englishapputc.herokuapp.com/api/users/";
-
+import mySite from "./Domain";
+import eyes from "../media/eye2.png";
+import closeye from "../media/eyeclose.png";
+let url = `${mySite}users/`;
 const initialForm = {
   name: "",
   email: "",
@@ -13,6 +14,8 @@ const initialForm = {
 };
 const LoginPage = () => {
   let { loginUser, logoutUser } = useContext(AuthContext);
+  const [eye, setEye] = useState(false);
+
   const navigate = useNavigate();
 
   const [db, setDb] = useState([]);
@@ -67,6 +70,10 @@ const LoginPage = () => {
     setForm(initialForm);
   };
 
+  const toggleEye = () => {
+    eye ? setEye(false) : setEye(true);
+  };
+
   return (
     <>
       <div className="login-form">
@@ -94,9 +101,19 @@ const LoginPage = () => {
               className="parrafo"
               name="password"
               placeholder="Password"
-              type="password"
+              type={eye ? "text" : "password"}
               value={form.password}
             />
+            {form.password != "" && (
+              <span className="eye eye-create">
+                <img
+                  className="eye-icon"
+                  onClick={toggleEye}
+                  src={eye ? eyes : closeye}
+                  alt=""
+                />
+              </span>
+            )}
             <div className="btn-register">
               <button onClick={handleSubmit} type="submit">
                 Registrar

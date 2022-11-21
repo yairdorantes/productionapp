@@ -10,7 +10,7 @@ import vip from "../media/vip.png";
 import crossOut from "../media/crossout.png";
 import OutsideClickHandler from "react-outside-click-handler";
 import "./styles/shinytext.css";
-
+import mySite from "./Domain";
 // Modal.defaultStyles.overlay.backgroundColor = "rgba(0, 0, 0, 0.83)";
 const customStyles = {
   content: {
@@ -36,7 +36,7 @@ const AboutUser = ({ wasUp }) => {
   let { user, logoutUser } = useContext(AuthContext);
   const [scoreUser, setScoreUser] = useState();
   const [isPremium, setIsPremium] = useState(false);
-  let url = `https://englishapputc.herokuapp.com/api/users/${user.user_id}`;
+  let url = `${mySite}users/${user.user_id}`;
   const hideAboutUser = () => {
     setModalIsOpen(false);
   };

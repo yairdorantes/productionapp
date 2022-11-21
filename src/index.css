@@ -30,7 +30,7 @@ body {
 
 @media only screen and (min-width: 320px) and (max-width: 768px) {
   .card {
-    margin-top: 25%;
+    margin-top: 2%;
   }
   .square-background {
     height: 80;
@@ -49,14 +49,7 @@ body {
   }
 }
 /******mobile**************/
-@media only screen and (max-width: 1200px) {
-}
 
-@media only screen and (max-height: 700px) {
-  .square-background {
-    /* height: 270px; */
-  }
-}
 /************************************/
 
 @media only screen and (min-width: 1200px) {

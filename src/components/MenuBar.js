@@ -2,7 +2,7 @@ import { NavLink /* useNavigate*/ } from "react-router-dom";
 import "./styles/menuBar.css";
 import cards from "../media/cardss.png";
 import tips from "../media/blog.png";
-import menus from "../media/menus.png";
+import menus from "../media/casa.png";
 // import back from "../media/undo.png";
 import AboutUser from "./AboutUser";
 const MenuBar = ({ wasUp }) => {
@@ -13,9 +13,9 @@ const MenuBar = ({ wasUp }) => {
       <div className="container-menus-bar">
         <div className="link-my-menu">
           <NavLink
-            className="link-element"
+            className="bigger"
             to="/menu"
-            style={{ filter: "brightness(63%)" }}
+            style={{ filter: "brightness(63%)", width: "100px" }}
           >
             <img
               className={"icon-menu-bar"}

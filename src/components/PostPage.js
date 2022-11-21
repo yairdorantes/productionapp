@@ -16,8 +16,9 @@ import {
   isBrowser,
   isMobile,
 } from "react-device-detect";
+import mySite from "./Domain";
 
-let url = "https://englishapputc.herokuapp.com/api/comments/";
+let url = `${mySite}comments/`;
 const parametros = {
   method: "GET",
   headers: {
@@ -62,14 +63,14 @@ const PostPage = () => {
   };
 
   const fetchAPi = async () => {
-    let url = `https://englishapputc.herokuapp.com/api/post/${params.id}`;
+    let url = `${mySite}post/${params.id}`;
     const response = await fetch(url, parametros);
     const responseJSON = await response.json();
     setPost(responseJSON.post[0]);
   };
 
   const fetchComments = async () => {
-    let url = `https://englishapputc.herokuapp.com/api/comments/${params.id}`;
+    let url = `${mySite}comments/${params.id}`;
     const response = await fetch(url, parametros);
     const responseJSON = await response.json();
     setComments(responseJSON.comments);

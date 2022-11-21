@@ -5,6 +5,9 @@
 }
 .container-card {
   position: relative;
+  width: 100%;
+  /* margin-top: -15px; */
+  /* cursor: pointer; */
 }
 .image-cards {
   margin: auto !important;
@@ -14,34 +17,35 @@
 
 .btn-sound-card {
   border: none;
-  margin-top: 10px;
-  width: 35px;
-  height: 33px;
+  width: 40px;
+
+  height: 40px;
   background-color: #171515;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  /* position: ; */
+  /* padding: 10px; */
+  margin-top: 10px;
+  /* overflow: hidden; */
 }
 .word-sound {
-  width: 22px;
+  width: 27px;
 }
+
 .card-text {
   text-align: center;
   margin: auto;
-  width: auto;
   padding: 8px;
-
-  /* font-family: "Righteous", cursive; */
-  /* font-family: "Bayon", sans-serif;
-   */
   font-family: "Jua", sans-serif;
-
-  background-color: #000000e4;
-
+  width: max-content;
+  text-align: center;
+  background-color: #000000d4;
   border-radius: 10px;
 }
-.contenido-card {
-  overflow-x: hidden;
-  text-align: center;
-}
+
 .mySwiper {
   margin-top: 65px;
   position: relative;
@@ -50,16 +54,17 @@
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  /* background-image: url("../src/media/a4.jpg");
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1007%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='rgba(2%2c 45%2c 51%2c 1)'%3e%3c/rect%3e%3cpath d='M0%2c605.148C108.367%2c579.141%2c166.502%2c463.844%2c266.569%2c414.789C386.405%2c356.043%2c558.358%2c398.139%2c639.082%2c291.859C718.512%2c187.283%2c669.553%2c36.387%2c652.919%2c-93.876C636.038%2c-226.076%2c624.138%2c-364.681%2c541.857%2c-469.522C457.821%2c-576.599%2c333.835%2c-668.281%2c197.829%2c-673.744C66.436%2c-679.022%2c-35.05%2c-567.772%2c-145.977%2c-497.153C-227.466%2c-445.275%2c-289.83%2c-377.149%2c-364.439%2c-315.788C-457.498%2c-239.253%2c-593.619%2c-203.545%2c-638.79%2c-91.844C-685.88%2c24.601%2c-652.059%2c159.774%2c-603.619%2c275.664C-554.202%2c393.892%2c-476.267%2c504.677%2c-363.792%2c566.071C-254.527%2c625.713%2c-121.046%2c634.198%2c0%2c605.148' fill='%23022429'%3e%3c/path%3e%3cpath d='M1440 980.033C1525.664 985.0640000000001 1626.646 1007.058 1690.378 949.596 1754.876 891.443 1717.138 781.9159999999999 1749.231 701.221 1778.9270000000001 626.553 1877.992 578.137 1869.905 498.189 1861.862 418.674 1768.655 380.555 1711.18 325.022 1659.3029999999999 274.898 1617.646 210.892 1549.149 188.27100000000002 1479.681 165.32999999999998 1407.045 191.35500000000002 1334.476 200.618 1247.142 211.76600000000002 1131.961 176.997 1080.098 248.14299999999997 1026.901 321.119 1105.673 421.88300000000004 1107.363 512.174 1108.693 583.257 1071.9769999999999 651.283 1088.934 720.326 1107.88 797.466 1143.976 874.014 1207.835 921.255 1273.339 969.713 1358.66 975.256 1440 980.033' fill='%2302363d'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1007'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  /* background-color: #2767a7; */
   background-size: cover;
-  background-position: center; */
-  background-color: #18191a;
+  background-position: center;
 }
 
 .swiper-slide-card {
-  background-repeat: no-repeat;
+  /* background-repeat: no-repeat; */
   background-size: cover;
   background-position: center;
+  cursor: pointer;
 }
 .container-icon-add {
   text-align: center;
