@@ -83,30 +83,35 @@ const PostPage = () => {
   };
 
   const sendComment = () => {
-    let options = {
-      body: {
-        post_id: params.id,
-        user_name: user.username,
-        comentario: comment,
-        date: getDate(),
-      },
-      headers: { "content-type": "application/json" },
-    };
-    helpHttp()
-      .post(url, options)
+    if (comment.length > 280) {
+      alert("Solo se permiten 280 caracteres ");
+      return;
+    } else {
+      let options = {
+        body: {
+          post_id: params.id,
+          user_name: user.username,
+          comentario: comment,
+          date: getDate(),
+        },
+        headers: { "content-type": "application/json" },
+      };
+      helpHttp()
+        .post(url, options)
 
-      .then((response) => console.log(response));
+        .then((response) => console.log(response));
 
-    let testing = {
-      author: user.username,
-      text: comment,
-      created_date: getDate(),
-    };
-    // console.log(comments);
-    comments.unshift(testing);
-    setComments([...comments]);
-    setComment("");
-    console.log(comments);
+      let testing = {
+        author: user.username,
+        text: comment,
+        created_date: getDate(),
+      };
+      // console.log(comments);
+      comments.unshift(testing);
+      setComments([...comments]);
+      setComment("");
+      console.log(comments);
+    }
   };
 
   useEffect(() => {

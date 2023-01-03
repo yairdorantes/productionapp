@@ -21,8 +21,9 @@
 }
 
 .form {
+  font-size: 20px;
   width: 440px;
-  height: 400px;
+  height: 450px;
 
   border-radius: 20px;
   /* box-shadow: 0 0 20px -10px #000; */
@@ -38,9 +39,11 @@
 }
 .btn-register {
   text-align: center;
+  font-size: 20px;
 }
 .btn-register > button {
-  font-weight: bold;
+  font-weight: 900;
+  font-size: 20px;
   color: white;
   width: 65%;
   margin: 20px;
@@ -95,6 +98,8 @@
 }
 input {
   font-family: "Mulish", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .eye {

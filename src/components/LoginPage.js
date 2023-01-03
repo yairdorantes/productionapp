@@ -8,40 +8,31 @@ import eyes from "../media/eye2.png";
 import closeye from "../media/eyeclose.png";
 let url = `${mySite}users/`;
 const initialForm = {
-  name: "",
+  username: "",
   email: "",
   password: "",
 };
 const LoginPage = () => {
-  let { loginUser, logoutUser } = useContext(AuthContext);
+  let { loginUser, logoutUser, loginAfterSignUp } = useContext(AuthContext);
   const [eye, setEye] = useState(false);
 
   const navigate = useNavigate();
 
-  const [db, setDb] = useState([]);
+  // const [db, setDb] = useState([]);
   const [form, setForm] = useState(initialForm);
-  const [registered, setRegistered] = useState(false);
 
   const createData = (data) => {
+    console.log(data.username);
     let options = {
       body: data,
       headers: { "content-type": "application/json" },
     };
-
-    // data.id = Date.now();
-
     helpHttp()
       .post(url, options)
       .then((res) => {
         console.log(res);
-        // if (!res.err) {
-        //   setDb([...db, res]);
-        //   //   setLoading(false);
-        // } else {
-        //   console.log(res);
-        //   // setError(res);
-        // }
       });
+    // loginAfterSignUp(data);
   };
 
   const handleChange = (e) => {
@@ -52,17 +43,21 @@ const LoginPage = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.password) {
-      alert("Please enter your email and password");
+    if (!form.username || !form.email || !form.password) {
+      alert("Por favor llena todos los datos");
       return;
     } else {
-      setRegistered(true);
+      if (form.username.length > 14) {
+        alert("Elige un nombre menor a 14 caracteres");
+        return;
+      }
       // logoutUser();
       navigate("/menu");
     }
     setForm((form["password"] = form["password"]));
     createData(form);
     console.log(form["password"]);
+
     handleReset();
   };
 
@@ -78,14 +73,14 @@ const LoginPage = () => {
     <>
       <div className="login-form">
         <div className="login-container">
-          <form className="form">
+          <form className="form" onSubmit={loginUser}>
             <input
               onChange={handleChange}
               className="parrafo"
-              name="name"
+              name="username"
               placeholder="Nombre de usuario"
               type="text"
-              value={form.name}
+              value={form.username}
             />
             <input
               onChange={handleChange}
@@ -104,7 +99,7 @@ const LoginPage = () => {
               type={eye ? "text" : "password"}
               value={form.password}
             />
-            {form.password != "" && (
+            {form.password !== "" && (
               <span className="eye eye-create">
                 <img
                   className="eye-icon"
@@ -119,11 +114,11 @@ const LoginPage = () => {
                 Registrar
               </button>
               <Link
-                style={{ color: "#0781df", textDecoration: "none" }}
+                style={{ color: "rgb(0, 218, 153)", textDecoration: "none" }}
                 className="link-to-signup"
                 to={"/login"}
               >
-                <div>Login</div>
+                <div>- Login -</div>
               </Link>
             </div>
           </form>

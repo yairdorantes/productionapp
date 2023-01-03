@@ -129,6 +129,8 @@
 }
 
 .nada-por-aqui {
+  font-family: "Mulish", sans-serif;
+
   /* display: flex; */
   /* justify-content: center; */
   /* background-color: #ffc107; */
@@ -136,6 +138,8 @@
   position: absolute;
   left: 30%;
   bottom: 100px;
+  font-size: 25px;
+  width: 100%;
 }
 .container-updatein-card {
   margin-top: 40px;
@@ -160,24 +164,15 @@
 /*********RADIO INPUT*************/
 .container-question-card {
   text-align: center;
-  /* padding: 15px; */
-  /* width: 110%; */
-  /* background-color: #10c88b; */
 }
 .question-card {
-  /* color: #907831; */
   font-size: 20px;
-  /* font-family: "Mulish", sans-serif; */
 }
 .parent-answers {
   margin: auto;
   text-align: center;
   color: #18191a;
 }
-/* display: block; */
-/* font-weight: 700; */
-/* margin: 10px; */
-/* font-size: 20px; */
 
 .box-answers {
   width: 250px;
@@ -189,9 +184,6 @@
 .box-answers {
   display: flex;
   transition: ease-in-out 0.5s;
-  /* font-family: "Mulish", sans-serif; */
-  /* justify-content: center; */
-  /* font-family: "Poppins", sans-serif; */
 }
 
 .rad-label {
@@ -204,6 +196,18 @@
 
   cursor: pointer;
   transition: 0.3s;
+}
+.showAnswer {
+  display: flex;
+  align-items: center;
+
+  border-radius: 100px;
+  padding: 14px 16px;
+  margin: 10px 0;
+
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #03f5336a;
 }
 
 .rad-label:hover,
@@ -249,6 +253,7 @@
 
 .rad-input:checked + .rad-design::before {
   transform: scale(0);
+  /* transition: scale(1.1); */
 }
 
 .rad-text {

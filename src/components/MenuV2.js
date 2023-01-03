@@ -8,6 +8,7 @@ import { useState } from "react";
 import trofeo from "../media/ganador.png";
 import { isMobile } from "react-device-detect";
 
+// console.log("xs");
 const MenuV2 = () => {
   const [isBoard, setIsBoard] = useState(false);
   const hideLeaderboard = () => {

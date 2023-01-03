@@ -53,9 +53,8 @@ const Session = () => {
               placeholder="Password"
               type={eye ? "text" : "password"}
               value={form.password}
-              endAdornm
             />
-            {form.password != "" && (
+            {form.password !== "" && (
               <span className="eye">
                 <img
                   className="eye-icon"
@@ -67,13 +66,15 @@ const Session = () => {
             )}
             {/* <input type="password" /> */}
             <div className="btn-register">
-              <button type="submit">Ingresar</button>
+              <button type="submit">
+                <strong>Ingresar</strong>
+              </button>
               <Link
-                style={{ color: "#0781df", textDecoration: "none" }}
+                style={{ color: "rgb(0, 218, 153)", textDecoration: "none" }}
                 className="link-to-signup"
                 to={"/signup"}
               >
-                <div>Crea una cuenta</div>
+                <div>- Crea una cuenta -</div>
               </Link>
             </div>
           </form>

@@ -8,7 +8,7 @@ import { Pagination, EffectCards, Mousewheel, Keyboard } from "swiper";
 import wordSound from "../media/cards/audio.png";
 import iconAdd from "../media/add.png";
 import Loader from "./Loader";
-import CardTuto from "./CardTuto";
+// import CardTuto from "./CardTuto";
 import MenuBar from "./MenuBar";
 import { NavLink, useParams } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
@@ -26,7 +26,7 @@ const urlImageCard = "https://res.cloudinary.com/tolumaster/image/upload/v1/";
 
 const Cards = () => {
   let { user } = useContext(AuthContext);
-
+  // console.log(user.user_id);
   let urlIncreaseScore = `${mySite}increase/${user.user_id}`;
 
   const paramsUrl = useParams();
@@ -42,6 +42,8 @@ const Cards = () => {
   const [answers, setAnswers] = useState([]);
   const [isSent, setIsSent] = useState(false);
   const [mode, setMode] = useState(true);
+  const [checked, setChecked] = useState();
+
   const customStyles = {
     content: {
       // color: "black",
@@ -78,6 +80,7 @@ const Cards = () => {
     const response = await fetch(url, params);
     const responseJSON = await response.json();
     setCards(responseJSON);
+    console.log(responseJSON);
     setCardLength(responseJSON.cards.length);
     // console.log(responseJSON.cards.length);
   };
@@ -119,30 +122,40 @@ const Cards = () => {
     }
     return randoms;
   }
+
   const generateQuestion = () => {
+    setChecked(-1);
+
     const lista = [];
     const cartas = cards.cards;
-    if (cartas.length < 3) {
-      hideQuestion();
-      alert("Necesitas agregar almenos 3 cartas para generar un Quiz");
+    if (cards.cards) {
+      if (cartas.length < 4) {
+        hideQuestion();
+        alert("Necesitas agregar almenos 4 cartas para generar un Quiz");
+      } else {
+        const randomsGenerated = differentRandom();
+        const cardChoosen = cartas[randomsGenerated[0]];
+        lista.push(cardChoosen);
+        setCardPicked(cardChoosen);
+        const answerOne = cartas[randomsGenerated[1]];
+        lista.push(answerOne);
+        const answerTwo = cartas[randomsGenerated[2]];
+        lista.push(answerTwo);
+        setAnswers(lista.sort(() => Math.random() - 0.5));
+      }
     } else {
-      const randomsGenerated = differentRandom();
-      const cardChoosen = cartas[randomsGenerated[0]];
-      lista.push(cardChoosen);
-      setCardPicked(cardChoosen);
-      const answerOne = cartas[randomsGenerated[1]];
-      lista.push(answerOne);
-      const answerTwo = cartas[randomsGenerated[2]];
-      lista.push(answerTwo);
-      setAnswers(lista.sort(() => Math.random() - 0.5));
+      alert("Agrega más cartas 4 cartas para generar un Quiz");
     }
   };
 
   const handleChangeRadio = (e) => {
     setAnswerSelected(e.target.value);
+    console.log(e.target.id);
+    setChecked(e.target.id);
   };
   const handleAnswer = () => {
     setIsSent(true);
+    // setChecked(-1);
     if (answerSelected === cardPicked.cardMeaning) {
       console.log("correct");
       setResult(true);
@@ -152,12 +165,19 @@ const Cards = () => {
       setResult(false);
     }
   };
+
   const openModalQuestion = (e) => {
     // e.preventDefault();
-    generateQuestion();
-    modalQuestion ? setModalQuestion(false) : setModalQuestion(true);
+    if (!cards.cards) {
+      alert("Agrega más cartas UwU");
+      return;
+    } else {
+      generateQuestion();
+      modalQuestion ? setModalQuestion(false) : setModalQuestion(true);
+    }
   };
   const nextQuestion = () => {
+    setAnswerSelected();
     generateQuestion();
     setResult();
     setIsSent(false);
@@ -207,7 +227,9 @@ const Cards = () => {
           {!cards ? (
             <Loader></Loader>
           ) : !cards.cards ? (
-            <div className="nada-por-aqui">Nada por aqui...</div>
+            <div className="nada-por-aqui">
+              <strong>Nada por aqui... Agrega tus cartas 💾</strong>
+            </div>
           ) : (
             cards.cards.map((card, key) => {
               // console.log(cards);
@@ -305,13 +327,24 @@ const Cards = () => {
                         answers.map((answer, key) => {
                           return (
                             <div key={answer.id} className="box-answers">
-                              <label className="rad-label">
+                              <label
+                                className={
+                                  cardPicked.cardMeaning ===
+                                    answer.cardMeaning &&
+                                  isSent &&
+                                  !result
+                                    ? "red-label showAnswer"
+                                    : "rad-label"
+                                }
+                              >
                                 <input
+                                  id={key}
                                   type="radio"
                                   className="rad-input"
                                   name="rad"
                                   onChange={handleChangeRadio}
                                   value={answer.cardMeaning}
+                                  checked={checked == key && true}
                                 />
                                 <div className="rad-design"></div>
                                 <div className="rad-text">
